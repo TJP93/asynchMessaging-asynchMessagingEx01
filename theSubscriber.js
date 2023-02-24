@@ -11,11 +11,14 @@ if (!messageContent || messageContent.length == 0) {
     messageContent = "No specified message"
 }
 
+let subscribeHeader = {
+    selector: "JMSPriority > 3"
+};
 
 ActiveMq.getConnection().then(
     ( mqConnection  ) => {
         const QUEUE = reqQueueSpec;
-        mqConnection.subscribe(QUEUE, 
+        mqConnection.subscribe(QUEUE, subscribeHeader,
             (data, headers) => 
                   console.log('MESSAGE RECEIVED:', data, headers)
         );

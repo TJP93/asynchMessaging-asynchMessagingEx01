@@ -17,7 +17,7 @@ ActiveMq.getConnection().then(
         const QUEUE = reqQueueSpec;
 
         let payload = {
-            "user" : "TomPorter",
+            "user" : "Tom Porter",
             "action" : "search",
             "type" : "accomodation",
             "criteria" : ["mid range", "restaurants"],
@@ -27,7 +27,7 @@ ActiveMq.getConnection().then(
         let body = JSON.stringify(payload);
 
         let headers = {
-            "priority" : 2,
+            "priority" : 4,
             "persistent": false,
         };
 
