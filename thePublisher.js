@@ -15,9 +15,23 @@ if (!messageContent || messageContent.length == 0) {
 ActiveMq.getConnection().then(
     ( mqConnection  ) => {
         const QUEUE = reqQueueSpec;
-       
 
-        mqConnection.publish(QUEUE, messageContent);
+        let payload = {
+            "user" : "TomPorter",
+            "action" : "search",
+            "type" : "accomodation",
+            "criteria" : ["mid range", "restaurants"],
+            "location" : "New York, USA"
+        }
+       
+        let body = JSON.stringify(payload);
+
+        let headers = {
+            "priority" : 2,
+            "persistent": false,
+        };
+
+        mqConnection.publish(QUEUE, body, headers);
         
     //    const timeout = 5000; 
      //   setTimeout(() => {
