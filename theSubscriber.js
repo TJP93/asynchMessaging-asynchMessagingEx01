@@ -12,7 +12,7 @@ if (!messageContent || messageContent.length == 0) {
 }
 
 let subscribeHeader = {
-    selector: "JMSPriority > 3"
+    selector: "JMSPriority > 1"
 };
 
 ActiveMq.getConnection().then(
@@ -20,8 +20,21 @@ ActiveMq.getConnection().then(
         const QUEUE = reqQueueSpec;
         mqConnection.subscribe(QUEUE, subscribeHeader,
             (data, headers) => 
-                  console.log('MESSAGE RECEIVED:', data, headers)
+                  console.log('MESSAGE RECEIVED:\n', data, headers)
         );
+        const REPONSEQUEUE = "holidayResponse"
+        let payload = {
+            "user" : "Tom Porter",
+            "message" : "Destination choice received"
+        }
+        let body = JSON.stringify(payload);
+
+        let headers = {
+            "priority" : 4,
+            "persistent" : false,
+        }
+
+        mqConnection.publish(REPONSEQUEUE, body, headers);
 
        
         

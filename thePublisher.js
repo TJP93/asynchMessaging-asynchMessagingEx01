@@ -28,7 +28,9 @@ ActiveMq.getConnection().then(
 
         let headers = {
             "priority" : 4,
-            "persistent": false,
+            "persistent" : false,
+            "reply-to" : "holidayResponse",
+            "type" : "JMSType"
         };
 
         mqConnection.publish(QUEUE, body, headers);
